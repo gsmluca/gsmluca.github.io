@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lucas Monteiro · Portfólio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Portfólio de Lucas Gabriel Silva Monteiro: suporte técnico, infraestrutura, cloud AWS e cibersegurança. Goiânia, GO, disponível para trabalho remoto.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;500;600;700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: network-topology canvas behind a split hero (identity + live "ticket"), then a single 1120px column of sections. Dark by design. */
+:root {
+  --void: #04070d;        /* page ground */
+  --deck: #0a1220;        /* raised panels */
+  --line: #18263b;        /* hairlines */
+  --ink: #e7eef9;         /* primary text */
+  --mute: #8597b2;        /* secondary text */
+  --volt: #3d7bff;        /* electric blue */
+  --cyan: #2fd9f0;        /* cyan signal */
+  --ok: #3ddc97;          /* status: done */
+  --warn: #f5b84a;        /* status: preparing */
+  --glass: rgba(14, 24, 42, .55);
+  --glow: rgba(61, 123, 255, .35);
+  --f-display: "Sora", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  --s-xs: .75rem; --s-sm: .875rem; --s-md: 1rem; --s-lg: 1.25rem; --s-xl: 1.75rem; --s-2xl: 2.5rem; --s-3xl: clamp(2.4rem, 6vw, 4.4rem);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--void); }
+body {
+  background: var(--void); color: var(--ink); font-family: var(--f-body); font-size: var(--s-md); line-height: 1.6;
+  overflow-x: hidden; -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--void); }
+::selection { background: var(--volt); color: #fff; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; border-radius: 6px; }
+
+#net { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: .75; }
+.aura { position: fixed; z-index: 0; pointer-events: none; border-radius: 50%; filter: blur(90px); opacity: .45; }
+.aura.a { width: 520px; height: 520px; background: radial-gradient(circle, rgba(61,123,255,.55), transparent 65%); top: -160px; right: -120px; }
+.aura.b { width: 460px; height: 460px; background: radial-gradient(circle, rgba(47,217,240,.30), transparent 65%); bottom: -180px; left: -160px; }
+
+.wrap {
+  position: relative; z-index: 1; max-width: 1120px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* nav */
+header.nav {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50;
+  backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%);
+  background: rgba(4, 7, 13, .72); border-bottom: 1px solid var(--line);
+}
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; }
+.mono-logo { font-family: var(--f-mono); font-size: var(--s-sm); letter-spacing: .04em; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+.mono-logo b { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 9px; border: 1px solid rgba(47,217,240,.45); color: var(--cyan); font-weight: 500;
+  background: linear-gradient(145deg, rgba(61,123,255,.18), rgba(47,217,240,.05)); box-shadow: 0 0 18px rgba(47,217,240,.15) inset; }
+.nav ul { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
+.nav ul a { text-decoration: none; color: var(--mute); font-size: var(--s-sm); padding: 6px 12px; border-radius: 8px; transition: color .2s, background .2s; }
+.nav ul a:hover { color: var(--ink); background: rgba(61,123,255,.1); }
+.live { display: inline-flex; align-items: center; gap: 8px; font-family: var(--f-mono); font-size: var(--s-xs); color: var(--ok);
+  border: 1px solid rgba(61,220,151,.35); background: rgba(61,220,151,.07); padding: 5px 11px; border-radius: 999px; white-space: nowrap; }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 0 rgba(61,220,151,.6); animation: ping 2.2s infinite; }
+@keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(61,220,151,.55); } 70%,100% { box-shadow: 0 0 0 9px rgba(61,220,151,0); } }
+
+/* hero */
+.hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(28px, 5vw, 64px); align-items: center; padding-block: clamp(48px, 8vw, 96px) clamp(40px, 6vw, 72px); }
+.hero > * { min-width: 0; }
+.eyebrow { font-family: var(--f-mono); font-size: var(--s-xs); letter-spacing: .14em; text-transform: uppercase; color: var(--cyan); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--cyan); }
+h1 { font-family: var(--f-display); font-weight: 600; font-size: var(--s-3xl); line-height: 1.02; letter-spacing: -.035em; margin: 18px 0 18px; text-wrap: balance; }
+h1 .grad { background: linear-gradient(100deg, var(--ink) 10%, #9cc2ff 45%, var(--cyan) 90%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.role { font-family: var(--f-display); font-weight: 300; font-size: clamp(1.1rem, 2.2vw, 1.45rem); color: #c5d3ea; margin: 0 0 18px; text-wrap: balance; }
+.lede { color: var(--mute); max-width: 58ch; margin: 0 0 28px; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn { font: 500 var(--s-sm) var(--f-body); text-decoration: none; display: inline-flex; align-items: center; gap: 9px; padding: 12px 20px; border-radius: 11px; cursor: pointer; border: 1px solid transparent; transition: transform .2s, box-shadow .25s, background .2s, border-color .2s; }
+.btn.primary { background: linear-gradient(135deg, var(--volt), #2b5fe0); color: #fff; box-shadow: 0 8px 30px -8px var(--glow), 0 0 0 1px rgba(255,255,255,.08) inset; }
+.btn.primary:hover { transform: translateY(-2px); box-shadow: 0 14px 40px -8px var(--glow); }
+.btn.ghost { background: var(--glass); color: var(--ink); border-color: var(--line); }
+.btn.ghost:hover { border-color: rgba(47,217,240,.5); }
+.btn svg { width: 16px; height: 16px; }
+
+/* identity card with tilt */
+.id-stage { perspective: 1100px; justify-self: center; width: min(100%, 380px); }
+.id-card { position: relative; border-radius: 22px; transform-style: preserve-3d; transition: transform .25s ease-out; will-change: transform; }
+.id-card .photo { position: relative; border-radius: 22px; overflow: hidden; aspect-ratio: 4 / 5; max-width: 100%; border: 1px solid rgba(120,160,230,.22);
+  box-shadow: 0 40px 80px -30px rgba(0,0,0,.8), 0 0 60px -20px var(--glow); background: var(--deck); }
+.id-card .photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; display: block; filter: saturate(.92) contrast(1.04); }
+.id-card .photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, rgba(4,7,13,.85) 100%), linear-gradient(120deg, rgba(61,123,255,.18), transparent 40%); }
+.scan { position: absolute; left: 0; right: 0; height: 2px; top: 0; background: linear-gradient(90deg, transparent, var(--cyan), transparent); opacity: .55; animation: scan 4.8s ease-in-out infinite; z-index: 2; }
+@keyframes scan { 0%,100% { top: 6%; } 50% { top: 94%; } }
+.corner { position: absolute; width: 18px; height: 18px; border-color: var(--cyan); border-style: solid; z-index: 3; opacity: .8; }
+.corner.tl { top: 10px; left: 10px; border-width: 1.5px 0 0 1.5px; } .corner.tr { top: 10px; right: 10px; border-width: 1.5px 1.5px 0 0; }
+.corner.bl { bottom: 10px; left: 10px; border-width: 0 0 1.5px 1.5px; } .corner.br { bottom: 10px; right: 10px; border-width: 0 1.5px 1.5px 0; }
+
+.ticket { position: absolute; left: -34px; right: 34px; bottom: -34px; transform: translateZ(60px); z-index: 4;
+  background: rgba(9, 16, 30, .78); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(120,160,230,.25); border-radius: 14px; padding: 14px 16px; font-family: var(--f-mono); font-size: 11.5px;
+  box-shadow: 0 24px 50px -20px rgba(0,0,0,.9); }
+.ticket .t-head { display: flex; justify-content: space-between; gap: 10px; color: var(--mute); border-bottom: 1px dashed var(--line); padding-bottom: 8px; margin-bottom: 8px; }
+.ticket .t-head b { color: var(--cyan); font-weight: 500; }
+.ticket dl { display: grid; grid-template-columns: auto 1fr; gap: 3px 14px; margin: 0; }
+.ticket dt { color: var(--mute); } .ticket dd { margin: 0; color: var(--ink); }
+.ticket .ok { color: var(--ok); }
+
+/* sections */
+section { padding-block: clamp(56px, 8vw, 96px); }
+.s-head { display: grid; gap: 10px; margin-bottom: 36px; }
+.s-head .idx { font-family: var(--f-mono); font-size: var(--s-xs); color: var(--cyan); letter-spacing: .14em; text-transform: uppercase; }
+h2 { font-family: var(--f-display); font-weight: 600; font-size: clamp(1.7rem, 3.6vw, 2.5rem); letter-spacing: -.025em; line-height: 1.1; margin: 0; text-wrap: balance; }
+.s-head p { color: var(--mute); margin: 0; max-width: 62ch; }
+.rule { height: 1px; background: linear-gradient(90deg, transparent, var(--line) 20%, var(--line) 80%, transparent); }
+
+/* about: terminal + interests */
+.about { display: grid; grid-template-columns: 1.1fr .9fr; gap: 24px; }
+.about > * { min-width: 0; }
+.term { background: rgba(5, 10, 19, .85); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: 0 30px 60px -30px rgba(0,0,0,.8); }
+.term .bar { display: flex; align-items: center; gap: 7px; padding: 11px 14px; border-bottom: 1px solid var(--line); background: rgba(14,24,42,.7); }
+.term .bar i { width: 10px; height: 10px; border-radius: 50%; background: #2a3a55; }
+.term .bar span { margin-left: 8px; font-family: var(--f-mono); font-size: var(--s-xs); color: var(--mute); }
+.term pre { margin: 0; padding: 18px 18px 22px; font-family: var(--f-mono); font-size: 13px; line-height: 1.75; color: #c9d6ec; white-space: pre-wrap; word-break: break-word; min-height: 300px; }
+.term .p { color: var(--cyan); } .term .k { color: #8fb4ff; } .term .g { color: var(--ok); } .term .y { color: var(--warn); } .term .m { color: var(--mute); }
+.caret { display: inline-block; width: 8px; height: 15px; background: var(--cyan); vertical-align: -2px; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+.panel { background: var(--glass); border: 1px solid var(--line); border-radius: 16px; padding: 22px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.panel h3 { font-family: var(--f-display); font-weight: 500; font-size: var(--s-lg); margin: 0 0 6px; }
+.panel > p { color: var(--mute); font-size: var(--s-sm); margin: 0 0 16px; }
+.targets { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.targets li { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 14px; border-radius: 11px; border: 1px solid var(--line); background: rgba(4,7,13,.5); font-size: var(--s-sm); transition: border-color .2s, transform .2s; }
+.targets li:hover { border-color: rgba(61,123,255,.55); transform: translateX(4px); }
+.targets li span:last-child { font-family: var(--f-mono); font-size: 11px; color: var(--mute); white-space: nowrap; }
+
+/* experience timeline */
+.timeline { position: relative; display: grid; gap: 18px; padding-left: 30px; }
+.timeline::before { content: ""; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 1px; background: linear-gradient(var(--cyan), var(--volt) 45%, var(--line) 75%); }
+.job { position: relative; }
+.job::before { content: ""; position: absolute; left: -29px; top: 22px; width: 13px; height: 13px; border-radius: 50%; background: var(--void); border: 2px solid var(--mute); }
+.job.tech::before { border-color: var(--cyan); box-shadow: 0 0 14px rgba(47,217,240,.6); }
+.job details { background: var(--glass); border: 1px solid var(--line); border-radius: 16px; transition: border-color .25s, background .25s; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.job.tech details { border-color: rgba(61,123,255,.32); }
+.job details:hover, .job details[open] { border-color: rgba(47,217,240,.5); background: rgba(14, 24, 42, .72); }
+.job summary { list-style: none; cursor: pointer; padding: 18px 20px; display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: baseline; }
+.job summary::-webkit-details-marker { display: none; }
+.job h3 { font-family: var(--f-display); font-weight: 500; font-size: var(--s-lg); margin: 0; }
+.job .org { color: var(--mute); font-size: var(--s-sm); grid-column: 1; }
+.job time { font-family: var(--f-mono); font-size: var(--s-xs); color: var(--mute); grid-row: 1; grid-column: 2; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.job .tagline { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.tag { font-family: var(--f-mono); font-size: 11px; padding: 3px 9px; border-radius: 6px; color: #a9c5ff; background: rgba(61,123,255,.1); border: 1px solid rgba(61,123,255,.22); }
+.job .more { grid-column: 2; grid-row: 2; font-family: var(--f-mono); font-size: 11px; color: var(--cyan); white-space: nowrap; }
+.job details[open] .more { color: var(--mute); }
+.job ul { margin: 0; padding: 0 20px 20px 40px; color: #c5d3ea; font-size: var(--s-sm); display: grid; gap: 6px; }
+.job li::marker { color: var(--cyan); }
+
+/* skills */
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+.tab { font: 500 var(--s-sm) var(--f-body); color: var(--mute); background: rgba(10,18,32,.6); border: 1px solid var(--line); padding: 10px 16px; border-radius: 10px; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; transition: color .2s, border-color .2s, background .2s; }
+.tab:hover { color: var(--ink); }
+.tab[aria-selected="true"] { color: var(--ink); border-color: rgba(47,217,240,.55); background: linear-gradient(135deg, rgba(61,123,255,.18), rgba(47,217,240,.06)); box-shadow: 0 0 24px -8px rgba(47,217,240,.5); }
+.tab .n { font-family: var(--f-mono); font-size: 11px; color: var(--cyan); }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: var(--s-xs); color: var(--mute); margin-bottom: 18px; font-family: var(--f-mono); }
+.legend span { display: inline-flex; align-items: center; gap: 7px; }
+.lv { width: 8px; height: 8px; border-radius: 2px; display: inline-block; }
+.lv.pro { background: var(--cyan); } .lv.base { background: var(--volt); } .lv.study { background: var(--warn); } .lv.lab { background: #b28bff; }
+.grid-skills { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+.skill { position: relative; padding: 16px 16px 16px 18px; border-radius: 14px; border: 1px solid var(--line); background: var(--glass); overflow: hidden; transition: transform .25s, border-color .25s; animation: pop .45s both; }
+.skill:hover { transform: translateY(-3px); border-color: rgba(120,160,230,.4); }
+.skill::before { content: ""; position: absolute; left: 0; top: 14px; bottom: 14px; width: 3px; border-radius: 0 3px 3px 0; background: var(--c, var(--volt)); }
+.skill b { display: block; font-family: var(--f-display); font-weight: 500; font-size: var(--s-md); margin-bottom: 4px; }
+.skill small { display: block; color: var(--mute); font-size: 13px; line-height: 1.5; }
+.skill em { display: inline-block; margin-top: 10px; font-style: normal; font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--c, var(--volt)); }
+@keyframes pop { from { opacity: .2; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* education & certs */
+.edu { display: grid; grid-template-columns: .9fr 1.1fr; gap: 24px; align-items: start; }
+.edu > * { min-width: 0; }
+.degree { padding: 26px; border-radius: 18px; border: 1px solid rgba(61,123,255,.35); background: radial-gradient(120% 120% at 0% 0%, rgba(61,123,255,.2), transparent 55%), var(--deck); position: relative; overflow: hidden; }
+.degree .cap { font-family: var(--f-mono); font-size: var(--s-xs); letter-spacing: .12em; text-transform: uppercase; color: var(--cyan); }
+.degree h3 { font-family: var(--f-display); font-weight: 600; font-size: var(--s-xl); line-height: 1.15; margin: 10px 0 6px; letter-spacing: -.02em; }
+.degree p { color: var(--mute); margin: 0 0 18px; font-size: var(--s-sm); }
+.progress { font-family: var(--f-mono); font-size: 11px; color: var(--mute); display: grid; gap: 8px; }
+.track { height: 6px; border-radius: 6px; background: var(--line); overflow: hidden; }
+.track i { display: block; height: 100%; width: 9%; background: linear-gradient(90deg, var(--volt), var(--cyan)); border-radius: 6px; box-shadow: 0 0 12px var(--cyan); }
+.certs { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.cert { display: grid; grid-template-columns: 1fr auto; gap: 4px 14px; align-items: center; padding: 15px 18px; border-radius: 14px; border: 1px solid var(--line); background: var(--glass); }
+.cert b { font-weight: 600; font-size: var(--s-sm); }
+.cert span { color: var(--mute); font-size: 13px; grid-column: 1; }
+.chip { grid-column: 2; grid-row: 1 / span 2; font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .05em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; white-space: nowrap; border: 1px solid; }
+.chip.done { color: var(--ok); border-color: rgba(61,220,151,.4); background: rgba(61,220,151,.08); }
+.chip.prog { color: var(--cyan); border-color: rgba(47,217,240,.4); background: rgba(47,217,240,.08); }
+.chip.prep { color: var(--warn); border-color: rgba(245,184,74,.4); background: rgba(245,184,74,.08); }
+.chip.cont { color: #c4a8ff; border-color: rgba(178,139,255,.4); background: rgba(178,139,255,.08); }
+
+/* contact */
+.contact { border-radius: 24px; border: 1px solid rgba(61,123,255,.3); padding: clamp(28px, 5vw, 56px); position: relative; overflow: hidden;
+  background: radial-gradient(90% 140% at 100% 0%, rgba(61,123,255,.22), transparent 60%), radial-gradient(70% 120% at 0% 100%, rgba(47,217,240,.12), transparent 60%), var(--deck); }
+.contact h2 { font-size: clamp(1.8rem, 4.4vw, 3rem); max-width: 18ch; }
+.contact > p { color: var(--mute); max-width: 56ch; margin: 14px 0 28px; }
+.channels { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.channel { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 18px; border-radius: 14px; background: rgba(4,7,13,.6); border: 1px solid var(--line); min-width: 0; }
+.channel div { min-width: 0; }
+.channel small { display: block; font-family: var(--f-mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: .1em; }
+.channel a, .channel output { font-family: var(--f-mono); font-size: var(--s-sm); color: var(--ink); text-decoration: none; overflow-wrap: anywhere; user-select: all; }
+.copy { font: 500 12px var(--f-mono); color: var(--cyan); background: rgba(47,217,240,.08); border: 1px solid rgba(47,217,240,.35); border-radius: 8px; padding: 7px 11px; cursor: pointer; white-space: nowrap; transition: background .2s; }
+.copy:hover { background: rgba(47,217,240,.16); }
+.copy.done { color: var(--ok); border-color: rgba(61,220,151,.45); }
+
+footer { padding-block: 36px 48px; color: var(--mute); font-family: var(--f-mono); font-size: var(--s-xs); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+
+/* load sequence */
+.rise { animation: rise .8s cubic-bezier(.2,.7,.2,1) both; }
+.d1 { animation-delay: .05s; } .d2 { animation-delay: .15s; } .d3 { animation-delay: .25s; } .d4 { animation-delay: .35s; } .d5 { animation-delay: .45s; }
+@keyframes rise { from { opacity: .01; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 900px) {
+  .nav ul { display: none; }
+  .hero, .about, .edu { grid-template-columns: 1fr; }
+  .id-stage { order: -1; width: min(100%, 320px); margin-bottom: 34px; }
+  .ticket { left: -12px; right: 12px; }
+}
+@media (max-width: 520px) {
+  .job summary { grid-template-columns: 1fr; }
+  .job time { grid-row: auto; grid-column: 1; }
+  .job .more { grid-column: 1; grid-row: auto; }
+  .ticket { font-size: 10.5px; left: -6px; right: 6px; bottom: -40px; }
+  .cert { grid-template-columns: 1fr; }
+  .chip { grid-column: 1; grid-row: auto; justify-self: start; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+</style>
+
+</head>
+<body>
+<canvas id="net" aria-hidden="true"></canvas>
+<div class="aura a" aria-hidden="true"></div>
+<div class="aura b" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="mono-logo" href="#top" aria-label="Início"><b>LM</b><span>lucas.monteiro</span></a>
+    <nav aria-label="Seções">
+      <ul>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#experiencia">Experiência</a></li>
+        <li><a href="#competencias">Competências</a></li>
+        <li><a href="#formacao">Formação</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+    <span class="live"><span class="dot"></span>Aberto a oportunidades</span>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap">
+    <div class="hero">
+      <div>
+        <div class="eyebrow rise d1">Goiânia, GO · Brasil <span style="color:var(--mute)">/ remoto</span></div>
+        <h1 class="rise d2"><span class="grad">Lucas Gabriel<br>Silva Monteiro</span></h1>
+        <p class="role rise d3">Suporte técnico, infraestrutura e cloud. Em formação em Defesa Cibernética.</p>
+        <p class="lede rise d4">Já atuei com atendimento a clientes, análise de logs, resolução de incidentes e redes. Agora busco minha primeira oportunidade como Service Desk, Suporte N1, Infraestrutura Júnior ou estágio em Cibersegurança, para aprender rápido e crescer com o time.</p>
+        <div class="cta rise d5">
+          <a class="btn primary" href="#experiencia">Ver experiência
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+          </a>
+          <a class="btn ghost" href="#contato">Entrar em contato</a>
+        </div>
+      </div>
+
+      <div class="id-stage rise d3">
+        <div class="id-card" id="card">
+          <div class="photo">
+            <img src="foto.jpg" alt="Foto de Lucas Gabriel Silva Monteiro">
+            <div class="scan" aria-hidden="true"></div>
+            <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+          </div>
+          <div class="ticket" aria-label="Resumo de disponibilidade">
+            <div class="t-head"><span>CHAMADO <b>#LGM-2026</b></span><span class="ok">● aberto</span></div>
+            <dl>
+              <dt>Fila</dt><dd>Service Desk · N1 · Infra</dd>
+              <dt>Status</dt><dd class="ok">Disponível para entrevistas</dd>
+              <dt>Modelo</dt><dd>Remoto ou Goiânia, GO</dd>
+              <dt>Nível</dt><dd>Júnior · entrada · estágio</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap"><div class="rule"></div></div>
+
+  <section id="sobre">
+    <div class="wrap">
+      <div class="s-head">
+        <span class="idx">Sobre</span>
+        <h2>Quem atende o chamado</h2>
+        <p>Tenho experiência prática em suporte e atendimento, e estou construindo minha base técnica em infraestrutura, cloud e segurança com a graduação, cursos e laboratórios.</p>
+      </div>
+      <div class="about">
+        <div class="term" role="region" aria-label="Terminal com resumo do perfil">
+          <div class="bar"><i></i><i></i><i></i><span>lucas@goiania: ~</span></div>
+          <pre id="tty"></pre>
+        </div>
+        <div class="panel">
+          <h3>Vagas que procuro</h3>
+          <p>Posições de entrada, onde posso contribuir desde o primeiro dia e evoluir.</p>
+          <ul class="targets">
+            <li><span>Analista de Service Desk Júnior</span><span>prioridade</span></li>
+            <li><span>Suporte Técnico N1</span><span>prioridade</span></li>
+            <li><span>Infraestrutura de TI Júnior</span><span>júnior</span></li>
+            <li><span>Operações e monitoramento</span><span>júnior</span></li>
+            <li><span>Estágio em Cibersegurança</span><span>estágio</span></li>
+            <li><span>Cloud Computing (AWS)</span><span>em estudo</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experiencia">
+    <div class="wrap">
+      <div class="s-head">
+        <span class="idx">Experiência</span>
+        <h2>Trajetória profissional</h2>
+        <p>As duas experiências mais recentes são em tecnologia. Clique em cada uma para ver as atividades.</p>
+      </div>
+      <div class="timeline">
+        <article class="job tech">
+          <details open>
+            <summary>
+              <h3>Analista de Suporte / Operações</h3>
+              <time datetime="2026-05">mai 2026 – out 2026</time>
+              <span class="org">Empresa de sistemas CRM</span>
+              <span class="more">detalhes ±</span>
+              <span class="tagline"><span class="tag">CRM</span><span class="tag">logs</span><span class="tag">incidentes</span><span class="tag">integrações</span><span class="tag">IA</span></span>
+            </summary>
+            <ul>
+              <li>Suporte a clientes e aos sistemas CRM, com foco na continuidade do serviço.</li>
+              <li>Análise de logs para identificar falhas e apoiar a resolução de incidentes.</li>
+              <li>Acompanhamento dos atendimentos até a solução.</li>
+              <li>Apoio a integrações de sistemas.</li>
+              <li>Contato com soluções baseadas em Inteligência Artificial.</li>
+            </ul>
+          </details>
+        </article>
+        <article class="job tech">
+          <details>
+            <summary>
+              <h3>Técnico de Redes</h3>
+              <time datetime="2026-03">mar 2026 – mai 2026</time>
+              <span class="org">Linq Telecom</span>
+              <span class="more">detalhes ±</span>
+              <span class="tagline"><span class="tag">troubleshooting</span><span class="tag">conectividade</span><span class="tag">redes</span><span class="tag">atendimento</span></span>
+            </summary>
+            <ul>
+              <li>Suporte técnico e troubleshooting de problemas dos clientes.</li>
+              <li>Diagnóstico de falhas de conectividade.</li>
+              <li>Configuração e manutenção de redes.</li>
+              <li>Atendimento direto a clientes.</li>
+            </ul>
+          </details>
+        </article>
+        <article class="job">
+          <details>
+            <summary>
+              <h3>Assistente Financeiro</h3>
+              <time datetime="2024-08">ago 2024 – jul 2025</time>
+              <span class="org">Grupo QG</span>
+              <span class="more">detalhes ±</span>
+              <span class="tagline"><span class="tag">organização</span><span class="tag">processos</span><span class="tag">Excel</span></span>
+            </summary>
+            <ul>
+              <li>Rotinas administrativas e financeiras, com atenção ao detalhe.</li>
+              <li>Organização de documentos e apoio a processos internos.</li>
+            </ul>
+          </details>
+        </article>
+        <article class="job">
+          <details>
+            <summary>
+              <h3>Promotor de Vendas</h3>
+              <time datetime="2024-01">jan 2024 – ago 2024</time>
+              <span class="org">Fokus</span>
+              <span class="more">detalhes ±</span>
+              <span class="tagline"><span class="tag">atendimento ao público</span></span>
+            </summary>
+            <ul>
+              <li>Atendimento ao público, organização de produtos e apoio a ações comerciais.</li>
+            </ul>
+          </details>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="competencias">
+    <div class="wrap">
+      <div class="s-head">
+        <span class="idx">Competências</span>
+        <h2>O que eu sei hoje, e o que estou estudando</h2>
+        <p>Cada item mostra de onde vem o conhecimento: da prática no trabalho, de fundamentos, de estudo em andamento ou de laboratórios.</p>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Áreas de competência" id="tabs"></div>
+      <div class="legend" aria-hidden="true">
+        <span><i class="lv pro"></i>Prática profissional</span>
+        <span><i class="lv base"></i>Fundamentos</span>
+        <span><i class="lv study"></i>Em estudo</span>
+        <span><i class="lv lab"></i>Laboratórios</span>
+      </div>
+      <div class="grid-skills" id="skills" role="tabpanel" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section id="formacao">
+    <div class="wrap">
+      <div class="s-head">
+        <span class="idx">Formação</span>
+        <h2>Formação e certificações</h2>
+        <p>O status de cada item está indicado ao lado.</p>
+      </div>
+      <div class="edu">
+        <div class="degree">
+          <span class="cap">Graduação · em andamento</span>
+          <h3>Defesa Cibernética</h3>
+          <p>Universidade Estácio de Sá · EAD · início em março de 2026</p>
+          <div class="progress">
+            <span>1º ano em curso</span>
+            <div class="track"><i></i></div>
+          </div>
+        </div>
+        <ul class="certs">
+          <li class="cert"><b>Google Cybersecurity Professional Certificate</b><span>Google</span><em class="chip done">Concluído</em></li>
+          <li class="cert"><b>Redes de Computadores</b><span>Cisco Networking Academy</span><em class="chip cont">Curso</em></li>
+          <li class="cert"><b>Python for Cybersecurity</b><span>Google</span><em class="chip prog">Em andamento</em></li>
+          <li class="cert"><b>eJPT · Junior Penetration Tester</b><span>INE / eLearnSecurity</span><em class="chip prep">Em preparação</em></li>
+          <li class="cert"><b>TryHackMe e Hack The Box</b><span>Estudos e laboratórios práticos</span><em class="chip cont">Contínuo</em></li>
+          <li class="cert"><b>Fundamentos de AWS</b><span>EC2, S3, IAM e CloudWatch</span><em class="chip prog">Em estudo</em></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contato">
+    <div class="wrap">
+      <div class="contact">
+        <span class="eyebrow">Contato</span>
+        <h2 style="margin-top:14px">Vamos conversar sobre a sua vaga?</h2>
+        <p>Estou disponível para entrevistas, trabalho remoto e novas oportunidades. Respondo rápido por e-mail e WhatsApp.</p>
+        <div class="channels">
+          <div class="channel">
+            <div><small>E-mail</small><a href="mailto:luke123trovao@gmail.com" id="v-mail">luke123trovao@gmail.com</a></div>
+            <button class="copy" type="button" data-copy="luke123trovao@gmail.com" id="c-mail">Copiar</button>
+          </div>
+          <div class="channel">
+            <div><small>Telefone · WhatsApp</small><a href="https://wa.me/5562996285189" target="_blank" rel="noopener" id="v-tel">+55 (62) 99628-5189</a></div>
+            <button class="copy" type="button" data-copy="+55 62 99628-5189" id="c-tel">Copiar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>© 2026 Lucas Gabriel Silva Monteiro</span>
+    <span>Goiânia, GO · Brasil</span>
+  </footer>
+</div>
+
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- skills ---------- */
+  const LV = { pro: ['Prática profissional', 'var(--cyan)'], base: ['Fundamentos', 'var(--volt)'], study: ['Em estudo', 'var(--warn)'], lab: ['Laboratórios', '#b28bff'] };
+  const AREAS = [
+    { id: 'infra', name: 'Infraestrutura e suporte', items: [
+      ['Service Desk N1', 'Atendimento, triagem, acompanhamento de chamados e escalonamento.', 'pro'],
+      ['Troubleshooting', 'Diagnóstico de problemas de clientes e de conectividade.', 'pro'],
+      ['Análise de logs', 'Leitura de logs para encontrar falhas e apoiar incidentes.', 'pro'],
+      ['Redes de computadores', 'Configuração e manutenção de redes, diagnóstico de conectividade.', 'pro'],
+      ['Windows', 'Uso e suporte no dia a dia.', 'base'],
+      ['Linux', 'Nível básico.', 'base'],
+      ['Monitoramento', 'Noções de monitoramento de sistemas e ambientes.', 'base'],
+    ]},
+    { id: 'cloud', name: 'Cloud', items: [
+      ['Fundamentos de AWS', 'Conceitos de computação em nuvem.', 'study'],
+      ['EC2', 'Instâncias de computação.', 'study'],
+      ['S3', 'Armazenamento de objetos.', 'study'],
+      ['IAM', 'Usuários, permissões e acesso.', 'study'],
+      ['CloudWatch', 'Métricas, logs e alarmes.', 'study'],
+    ]},
+    { id: 'sec', name: 'Cibersegurança', items: [
+      ['Fundamentos de segurança', 'Base do Google Cybersecurity Certificate.', 'base'],
+      ['SIEM', 'Noções de coleta e análise de eventos.', 'base'],
+      ['Firewall', 'Conceitos de controle de tráfego.', 'base'],
+      ['EDR / XDR', 'Conceitos de detecção e resposta.', 'base'],
+      ['Phishing', 'Identificação de e-mails suspeitos e spam.', 'base'],
+      ['Resposta a incidentes', 'Noções do processo de resposta.', 'base'],
+      ['Laboratórios práticos', 'TryHackMe e Hack The Box.', 'lab'],
+    ]},
+    { id: 'tools', name: 'Ferramentas', items: [
+      ['Python para Cibersegurança', 'Curso do Google em andamento.', 'study'],
+      ['Excel avançado', 'Planilhas, fórmulas e organização de dados.', 'pro'],
+      ['Pacote Office', 'Word, Excel e PowerPoint.', 'pro'],
+      ['Sistemas com IA', 'Contato com soluções de IA no suporte a CRM.', 'pro'],
+    ]},
+  ];
+  const tabs = document.getElementById('tabs'), grid = document.getElementById('skills');
+  function show(id) {
+    const area = AREAS.find(a => a.id === id);
+    [...tabs.children].forEach(b => b.setAttribute('aria-selected', b.dataset.id === id ? 'true' : 'false'));
+    grid.setAttribute('aria-labelledby', 'tab-' + id);
+    grid.innerHTML = area.items.map(([t, d, l], i) =>
+      `<div class="skill" style="--c:${LV[l][1]};animation-delay:${i * 45}ms"><b>${t}</b><small>${d}</small><em>${LV[l][0]}</em></div>`).join('');
+  }
+  AREAS.forEach((a, i) => {
+    const b = document.createElement('button');
+    b.className = 'tab'; b.type = 'button'; b.role = 'tab'; b.id = 'tab-' + a.id; b.dataset.id = a.id;
+    b.innerHTML = `<span class="n">${String(a.items.length).padStart(2, '0')}</span>${a.name}`;
+    b.addEventListener('click', () => show(a.id));
+    b.addEventListener('keydown', e => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      const n = (i + (e.key === 'ArrowRight' ? 1 : AREAS.length - 1)) % AREAS.length;
+      tabs.children[n].focus(); show(AREAS[n].id);
+    });
+    tabs.appendChild(b);
+  });
+  show('infra');
+
+  /* ---------- terminal ---------- */
+  const lines = [
+    ['<span class="p">$</span> <span class="k">whoami</span>', 0],
+    ['Lucas Gabriel Silva Monteiro, 18 anos, Goiânia, GO', 1],
+    ['', 1],
+    ['<span class="p">$</span> <span class="k">cat</span> foco.txt', 0],
+    ['Service Desk · Suporte N1 · Infra Júnior · Cloud AWS', 1],
+    ['', 1],
+    ['<span class="p">$</span> <span class="k">tail</span> -n 3 historico.log', 0],
+    ['<span class="m">[2026-05..10]</span> suporte CRM, análise de logs, incidentes', 1],
+    ['<span class="m">[2026-03..05]</span> técnico de redes, troubleshooting', 1],
+    ['<span class="m">[2026-03]</span> início da graduação em Defesa Cibernética', 1],
+    ['', 1],
+    ['<span class="p">$</span> <span class="k">systemctl</span> status carreira', 0],
+    ['<span class="g">● active (running)</span>, aprendendo todos os dias', 1],
+    ['  estudando: <span class="y">AWS · Python · eJPT</span>', 1],
+  ];
+  const tty = document.getElementById('tty');
+  const full = lines.map(l => l[0]).join('\n');
+  if (reduce) { tty.innerHTML = full + '\n<span class="p">$</span> <span class="caret"></span>'; }
+  else {
+    let i = 0, out = '';
+    const strip = s => s.replace(/<[^>]+>/g, '');
+    function next() {
+      if (i >= lines.length) { tty.innerHTML = out + '<span class="p">$</span> <span class="caret"></span>'; return; }
+      const [html, instant] = lines[i];
+      if (instant) { out += html + '\n'; tty.innerHTML = out + '<span class="caret"></span>'; i++; setTimeout(next, 110); return; }
+      const plain = strip(html); let k = 0;
+      (function type() {
+        k++;
+        tty.innerHTML = out + '<span class="p">$</span> ' + plain.slice(2, k + 2).replace(/&/g, '&amp;').replace(/</g, '&lt;') + '<span class="caret"></span>';
+        if (k + 2 < plain.length) setTimeout(type, 38); else { out += html + '\n'; i++; setTimeout(next, 260); }
+      })();
+    }
+    // show the finished text first so the page is complete at rest, then replay once it scrolls into view
+    tty.innerHTML = full + '\n<span class="p">$</span> <span class="caret"></span>';
+    const io = new IntersectionObserver(es => { if (es[0].isIntersecting) { io.disconnect(); out = ''; next(); } }, { threshold: .4 });
+    io.observe(tty);
+  }
+
+  /* ---------- tilt ---------- */
+  const card = document.getElementById('card');
+  if (!reduce && matchMedia('(pointer: fine)').matches) {
+    const stage = card.parentElement;
+    stage.addEventListener('pointermove', e => {
+      const r = stage.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      card.style.transform = `rotateY(${x * 14}deg) rotateX(${-y * 12}deg)`;
+    });
+    stage.addEventListener('pointerleave', () => { card.style.transform = ''; });
+  }
+
+  /* ---------- copy ---------- */
+  document.querySelectorAll('.copy').forEach(btn => btn.addEventListener('click', () => {
+    const done = () => { btn.textContent = 'Copiado'; btn.classList.add('done'); setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('done'); }, 1800); };
+    const fallback = () => { const el = btn.previousElementSibling.querySelector('a'); const s = getSelection(), r = document.createRange(); r.selectNodeContents(el); s.removeAllRanges(); s.addRange(r); btn.textContent = 'Selecionado'; };
+    try { navigator.clipboard.writeText(btn.dataset.copy).then(done, fallback); } catch (e) { fallback(); }
+  }));
+
+  /* ---------- network canvas ---------- */
+  const cv = document.getElementById('net'), ctx = cv.getContext('2d');
+  let W, H, nodes = [], packets = [], dpr = Math.min(devicePixelRatio || 1, 2);
+  function size() {
+    W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const n = Math.round(Math.min(70, (W * H) / 22000));
+    nodes = Array.from({ length: n }, () => ({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .18, vy: (Math.random() - .5) * .18, r: Math.random() * 1.4 + .6 }));
+  }
+  const LINK = 150;
+  function frame() {
+    ctx.clearRect(0, 0, W, H);
+    for (const p of nodes) { if (!reduce) { p.x += p.vx; p.y += p.vy; if (p.x < 0 || p.x > W) p.vx *= -1; if (p.y < 0 || p.y > H) p.vy *= -1; } }
+    const links = [];
+    for (let i = 0; i < nodes.length; i++) for (let j = i + 1; j < nodes.length; j++) {
+      const a = nodes[i], b = nodes[j], d = Math.hypot(a.x - b.x, a.y - b.y);
+      if (d < LINK) { links.push([a, b]); ctx.strokeStyle = `rgba(61,123,255,${(1 - d / LINK) * .22})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+    }
+    for (const p of nodes) { ctx.fillStyle = 'rgba(150,190,255,.55)'; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283); ctx.fill(); }
+    if (!reduce && links.length && packets.length < 14 && Math.random() < .08) { const [a, b] = links[(Math.random() * links.length) | 0]; packets.push({ a, b, t: 0 }); }
+    packets = packets.filter(k => k.t <= 1);
+    for (const k of packets) {
+      k.t += .012; const x = k.a.x + (k.b.x - k.a.x) * k.t, y = k.a.y + (k.b.y - k.a.y) * k.t;
+      const g = ctx.createRadialGradient(x, y, 0, x, y, 7); g.addColorStop(0, 'rgba(47,217,240,.95)'); g.addColorStop(1, 'rgba(47,217,240,0)');
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, 7, 0, 6.283); ctx.fill();
+    }
+    if (!reduce) requestAnimationFrame(frame);
+  }
+  size(); frame();
+  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { size(); if (reduce) frame(); }, 150); });
+})();
+</script>
+
+</body>
+</html>
